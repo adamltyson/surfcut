@@ -1,6 +1,7 @@
 import napari
 
-def view(array):
+def view(*args):
     with napari.gui_qt():
         v = napari.Viewer(title="Surfcut")
-        v.add_image(array)
+        for image in args:
+                v.add_image(image)
