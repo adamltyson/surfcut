@@ -7,5 +7,3 @@ def view(raw_data, surf_stack, surf_projection):
         v.add_image(raw_data, name="Raw data")
         v.add_image(surf_stack, name="Surf stack")
         v.add_image(surf_projection, name="Surf projection")
-
-
