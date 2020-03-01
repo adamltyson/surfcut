@@ -27,12 +27,24 @@ def surfcut_parser():
         default=20,
         help="Threshold for binarising the image",
     )
+
     parser.add_argument(
         "-s",
-        "--shift-magnitude",
-        dest="shift_magnitude",
+        "--shift",
+        dest="shift",
         type=int,
-        default=15,
-        help="Thickness of the surface projection",
+        default=12,
+        help="Where relative to the surface of the sample should the "
+             "cut be made",
     )
+
+    parser.add_argument(
+        "-d",
+        "--depth",
+        dest="depth",
+        type=int,
+        default=4,
+        help="Thickness of the projection",
+    )
+
     return parser

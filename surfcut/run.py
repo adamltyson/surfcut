@@ -33,22 +33,36 @@ def main():
     print("Detecting edges")
     edges = edge_detect(binary)
 
-    print("Shifting binary object")
-    edges_shift = edges[0:-args.shift_magnitude]
-    padding = np.zeros((args.shift_magnitude, edges.shape[1], edges.shape[2]))
-    edges_shift = np.append(padding, edges_shift, axis=0)
+    down_shift = edges[0:-args.shift]
+    padding = np.zeros((args.shift, edges.shape[1], edges.shape[2]))
+    edges= np.append(padding, down_shift, axis=0)
+
+    print("Shifting binary object down")
+    shift_mag = int(args.depth / 2)
+    down_shift = edges[0:-shift_mag]
+    padding = np.zeros((shift_mag, edges.shape[1], edges.shape[2]))
+    down_shift = np.append(padding, down_shift, axis=0)
+
+
+    print("Shifting binary object up")
+    up_shift = edges[shift_mag:]
+    padding = np.zeros((shift_mag, edges.shape[1], edges.shape[2]))
+    up_shift = np.append(up_shift, padding, axis=0)
 
     print("Generating mask")
-    margin = edges - edges_shift
+    mask = up_shift - down_shift
+    mask = mask > 0
 
     print("Masking data")
-    masked = data * margin
+    masked = data * mask
 
     print("Projecting data")
     projection = np.max(masked, axis=0)
 
     print(f"Finished. Total time taken: {format(datetime.now() - start_time)}")
-    view(data, filtered, binary, edges, edges_shift, margin, masked, projection)
+
+    print("Opening viewer")
+    view(data, filtered, binary, edges, mask, masked, projection)
 
 
 def edge_detect(image):
