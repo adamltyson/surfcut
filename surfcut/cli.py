@@ -1,7 +1,5 @@
-from argparse import (
-    ArgumentParser,
-    ArgumentDefaultsHelpFormatter,
-)
+from argparse import ArgumentDefaultsHelpFormatter
+from gooey import GooeyParser as ArgumentParser
 
 
 def surfcut_parser():
@@ -11,11 +9,13 @@ def surfcut_parser():
         type=str,
         nargs=1,
         help="Path to the image to be analysed",
+        widget='FileChooser'
+
     )
     parser.add_argument(
         "-g",
         "--gauss_sigma",
-        dest="gauss_sigma",
+        dest="sigma",
         type=int,
         default=3,
         help="Gaussian smoothing sigma width",

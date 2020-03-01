@@ -1,7 +1,13 @@
 from setuptools import setup, find_packages
 
 
-requirements = ["numpy", "scipy", "napari>=0.2.12", "tifffile"]
+requirements = [
+    "numpy",
+    "scipy",
+    "napari>=0.2.12",
+    "tifffile",
+    "Gooey",
+]
 
 
 setup(

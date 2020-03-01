@@ -2,11 +2,17 @@ import tifffile
 from scipy.ndimage import filters
 import numpy as np
 from datetime import datetime
+from gooey import Gooey
 
 from surfcut.cli import surfcut_parser
 from surfcut.viewer.viewer import view
 
 
+@Gooey(program_name='SurfCut',       # Defaults to script name
+       default_size=(800, 700),   # starting size of the GUI
+       required_cols=1,           # number of columns in the "Required" section
+       optional_cols=2,           # number of columbs in the "Optional" section
+)
 def main():
     start_time = datetime.now()
     args = surfcut_parser().parse_args()
@@ -22,7 +28,7 @@ def main():
     print("Smoothing")
     filtered = np.copy(data)
     for idx, plane in enumerate(filtered):
-        filtered[idx] = filters.gaussian_filter(plane, args.gauss_sigma)
+        filtered[idx] = filters.gaussian_filter(plane, args.sigma)
 
     print("Thresholding")
     binary = filtered > args.threshold
