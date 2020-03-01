@@ -2,6 +2,7 @@ import tifffile
 from scipy.ndimage import filters
 import numpy as np
 from datetime import datetime
+from skimage.morphology import binary_erosion, binary_dilation
 
 from surfcut.cli import surfcut_parser
 from surfcut.viewer.viewer import view
@@ -30,24 +31,34 @@ def main():
     print("Detecting edges")
     binary = edge_detect(binary)
 
-    print("Shifting binary object down")
-    shift_mag = int(args.shift + (args.depth / 2))
-    down_shift = binary[0:-shift_mag]
-    padding = np.zeros((shift_mag, binary.shape[1], binary.shape[2]))
-    down_shift = np.append(padding, down_shift, axis=0)
+    print("Eroding")
+    #TODO[Elaine]: How do we select a radius to erode by?
+    eroded = binary_erosion(binary)
 
-    print("Shifting binary object up")
-    shift_mag = int(args.shift - (args.depth / 2))
-    up_shift = binary[0:-shift_mag]
-    padding = np.zeros((shift_mag, binary.shape[1], binary.shape[2]))
-    up_shift = np.append(padding, up_shift, axis=0)
-    del binary
+    print("Dilating")
+    dilated = binary_dilation(binary)
 
-    print("Generating mask")
-    mask = up_shift - down_shift
-    del up_shift
-    del down_shift
-    mask = mask > 0
+    print("Obtaining border")
+    border = dilated^eroded
+
+    # print("Shifting binary object down")
+    # shift_mag = int(args.shift + (args.depth / 2))
+    # down_shift = binary[0:-shift_mag]
+    # padding = np.zeros((shift_mag, binary.shape[1], binary.shape[2]))
+    # down_shift = np.append(padding, down_shift, axis=0)
+
+    # print("Shifting binary object up")
+    # shift_mag = int(args.shift - (args.depth / 2))
+    # up_shift = binary[0:-shift_mag]
+    # padding = np.zeros((shift_mag, binary.shape[1], binary.shape[2]))
+    # up_shift = np.append(padding, up_shift, axis=0)
+    # del binary
+
+    # print("Generating mask")
+    # mask = up_shift - down_shift
+    # del up_shift
+    # del down_shift
+    # mask = mask > 0
 
     print("Masking data")
     masked = data * mask
@@ -59,7 +70,8 @@ def main():
 
     if not args.no_viewer:
         print("Opening viewer")
-        view(data, masked, projection)
+        # view(data, masked, projection)
+        view(dilated, eroded, border)
 
 
 def edge_detect(image):
