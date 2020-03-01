@@ -10,6 +10,7 @@ from surfcut.viewer.viewer import view
 # TODO: don't use unique image variable names, otherwise they all sit in ram.
 # Doing this initially for visualisation
 
+
 def main():
     start_time = datetime.now()
     args = surfcut_parser().parse_args()
@@ -29,28 +30,27 @@ def main():
 
     print("Thresholding")
     binary = filtered > args.threshold
-
+    del filtered
     print("Detecting edges")
-    edges = edge_detect(binary)
-
-    down_shift = edges[0:-args.shift]
-    padding = np.zeros((args.shift, edges.shape[1], edges.shape[2]))
-    edges= np.append(padding, down_shift, axis=0)
+    binary = edge_detect(binary)
 
     print("Shifting binary object down")
-    shift_mag = int(args.depth / 2)
-    down_shift = edges[0:-shift_mag]
-    padding = np.zeros((shift_mag, edges.shape[1], edges.shape[2]))
+    shift_mag = int(args.shift + (args.depth / 2))
+    down_shift = binary[0:-shift_mag]
+    padding = np.zeros((shift_mag, binary.shape[1], binary.shape[2]))
     down_shift = np.append(padding, down_shift, axis=0)
 
-
     print("Shifting binary object up")
-    up_shift = edges[shift_mag:]
-    padding = np.zeros((shift_mag, edges.shape[1], edges.shape[2]))
-    up_shift = np.append(up_shift, padding, axis=0)
+    shift_mag = int(args.shift - (args.depth / 2))
+    up_shift = binary[0:-shift_mag]
+    padding = np.zeros((shift_mag, binary.shape[1], binary.shape[2]))
+    up_shift = np.append(padding, up_shift, axis=0)
+    del binary
 
     print("Generating mask")
     mask = up_shift - down_shift
+    del up_shift
+    del down_shift
     mask = mask > 0
 
     print("Masking data")
@@ -61,17 +61,19 @@ def main():
 
     print(f"Finished. Total time taken: {format(datetime.now() - start_time)}")
 
-    print("Opening viewer")
-    view(data, filtered, binary, edges, mask, masked, projection)
+    if not args.no_viewer:
+        print("Opening viewer")
+        view(data, masked, projection)
 
 
 def edge_detect(image):
     edges = np.zeros_like(image)
     for idx, _ in enumerate(image):
         if idx < len(image):
-            edges[idx, :, :] = np.max(image[0:idx+1], axis=0)
+            edges[idx, :, :] = np.max(image[0 : idx + 1], axis=0)
 
     return edges
+
 
 if __name__ == "__main__":
     main()

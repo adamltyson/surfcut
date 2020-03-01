@@ -3,6 +3,7 @@ from argparse import (
     ArgumentDefaultsHelpFormatter,
 )
 
+
 def surfcut_parser():
     parser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
     parser.add_argument(
@@ -35,7 +36,7 @@ def surfcut_parser():
         type=int,
         default=12,
         help="Where relative to the surface of the sample should the "
-             "cut be made",
+        "cut be made",
     )
 
     parser.add_argument(
@@ -45,6 +46,14 @@ def surfcut_parser():
         type=int,
         default=4,
         help="Thickness of the projection",
+    )
+
+    parser.add_argument(
+        "-n",
+        "--no-viewer",
+        dest="no_viewer",
+        action="store_true",
+        help="Don't launch the viewer",
     )
 
     return parser
