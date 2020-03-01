@@ -34,7 +34,7 @@ def surfcut_parser():
         "--shift",
         dest="shift",
         type=int,
-        default=12,
+        default=14,
         help="Where relative to the surface of the sample should the "
         "cut be made",
     )
