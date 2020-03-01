@@ -7,10 +7,6 @@ from surfcut.cli import surfcut_parser
 from surfcut.viewer.viewer import view
 
 
-# TODO: don't use unique image variable names, otherwise they all sit in ram.
-# Doing this initially for visualisation
-
-
 def main():
     start_time = datetime.now()
     args = surfcut_parser().parse_args()
