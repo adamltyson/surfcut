@@ -8,10 +8,10 @@ from surfcut.cli import surfcut_parser
 from surfcut.viewer.viewer import view
 
 
-@Gooey(program_name='SurfCut',       # Defaults to script name
-       default_size=(800, 700),   # starting size of the GUI
-       required_cols=1,           # number of columns in the "Required" section
-       optional_cols=2,           # number of columbs in the "Optional" section
+@Gooey(program_name='SurfCut',
+       default_size=(800, 700),
+       required_cols=1,
+       optional_cols=2,
 )
 def main():
     start_time = datetime.now()
