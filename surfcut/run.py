@@ -11,6 +11,7 @@ from surfcut.viewer.viewer import view
 # Doing this initially for visualisation
 
 def main():
+    start_time = datetime.now()
     args = surfcut_parser().parse_args()
 
     image_path = args.image_path
@@ -27,10 +28,11 @@ def main():
         filtered[idx] = filters.gaussian_filter(plane, args.gauss_sigma)
 
     print("Thresholding")
-    binary = 1.0 * (filtered > args.threshold)
+    binary = filtered > args.threshold
 
     print("Detecting edges")
     edges = edge_detect(binary)
+    print(f"Finished. Total time taken: {format(datetime.now() - start_time)}")
     view(data, filtered, binary, edges)
 
 
