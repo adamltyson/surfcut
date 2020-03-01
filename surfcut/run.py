@@ -35,18 +35,6 @@ def main():
 
 
 def edge_detect(image):
-    # // Edge
-    # detect
-    # getDimensions(w, h, channels, slices, frames);
-    # print(slices);
-    # for (img=0; img < slices; img++){
-    #     print("Edge detect projection" + img + "/" + slices);
-    # slice = img+1;
-    # selectWindow(imgName);
-    # run("Z Project...", "stop=&slice projection=[Max Intensity]");
-    # }
-
-    # FIXME: why doesnt this work?
     edges = np.zeros_like(image)
     for idx, _ in enumerate(image):
         if idx < len(image):
