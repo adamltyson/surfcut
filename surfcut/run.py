@@ -32,8 +32,23 @@ def main():
 
     print("Detecting edges")
     edges = edge_detect(binary)
+
+    print("Shifting binary object")
+    edges_shift = edges[0:-args.shift_magnitude]
+    padding = np.zeros((args.shift_magnitude, edges.shape[1], edges.shape[2]))
+    edges_shift = np.append(padding, edges_shift, axis=0)
+
+    print("Generating mask")
+    margin = edges - edges_shift
+
+    print("Masking data")
+    masked = data * margin
+
+    print("Projecting data")
+    projection = np.max(masked, axis=0)
+
     print(f"Finished. Total time taken: {format(datetime.now() - start_time)}")
-    view(data, filtered, binary, edges)
+    view(data, filtered, binary, edges, edges_shift, margin, masked, projection)
 
 
 def edge_detect(image):

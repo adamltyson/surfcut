@@ -15,7 +15,7 @@ def surfcut_parser():
         "-g",
         "--gauss_sigma",
         dest="gauss_sigma",
-        type=float,
+        type=int,
         default=3,
         help="Gaussian smoothing sigma width",
     )
@@ -23,8 +23,16 @@ def surfcut_parser():
         "-t",
         "--threshold",
         dest="threshold",
-        type=float,
+        type=int,
         default=20,
         help="Threshold for binarising the image",
+    )
+    parser.add_argument(
+        "-s",
+        "--shift-magnitude",
+        dest="shift_magnitude",
+        type=int,
+        default=15,
+        help="Thickness of the surface projection",
     )
     return parser
