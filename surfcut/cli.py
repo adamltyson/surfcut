@@ -49,6 +49,14 @@ def surfcut_parser():
     )
 
     parser.add_argument(
+        "-m",
+        "--morphology",
+        dest="morphology",
+        action="store_true",
+        help="Use morphological operations for highly curved objects (takes longer)"
+    )
+
+    parser.add_argument(
         "-n",
         "--no-viewer",
         dest="no_viewer",
