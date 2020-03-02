@@ -45,7 +45,6 @@ def main():
 
         print("Masking data")
         masked = data * border
-        del border
     
     else:
         print("Shifting binary object down")
