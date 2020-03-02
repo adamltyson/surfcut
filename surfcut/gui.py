@@ -111,6 +111,7 @@ class initial_frame():
         export_path = askdirectory()
         imwrite('{}/projection.tif'.format(export_path), self.projection.astype(np.uint8))
 
+
 class calibrate_window():
     def __init__(self, master, data, binary):
         self.master = master

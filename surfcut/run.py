@@ -27,6 +27,7 @@ def main():
 
     print("Thresholding")
     binary = filtered > args.threshold
+
     del filtered
     print("Detecting edges")
     binary = edge_detect(binary)
