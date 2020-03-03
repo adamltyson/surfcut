@@ -18,7 +18,7 @@ requirements = [
 
 setup(
     name="surfcut",
-    version="0.0.3rc1",
+    version="0.0.3",
     description="Cutting confocal stacks at various depths relative to surface signal ",
     long_description=long_description,
     long_description_content_type="text/x-rst",
