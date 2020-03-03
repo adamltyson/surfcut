@@ -34,19 +34,19 @@ def main():
 
     if args.morphology:
         print("Eroding to depth")
-        eroded_surface = binary_erosion(binary, selem = ball(args.shift))
+        eroded_surface = binary_erosion(binary, selem=ball(args.shift))
 
         print("Dilating and eroding")
-        dilated = binary_dilation(eroded_surface, selem = ball(args.depth))
-        eroded = binary_erosion(eroded_surface, selem = ball(args.depth))
+        dilated = binary_dilation(eroded_surface, selem=ball(args.depth))
+        eroded = binary_erosion(eroded_surface, selem=ball(args.depth))
         del eroded_surface
 
         print("Obtaining border")
-        border = dilated^eroded
+        border = dilated ^ eroded
 
         print("Masking data")
         masked = data * border
-    
+
     else:
         print("Shifting binary object down")
         shift_mag = int(args.shift + (args.depth / 2))

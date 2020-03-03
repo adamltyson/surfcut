@@ -53,7 +53,7 @@ def surfcut_parser():
         "--morphology",
         dest="morphology",
         action="store_true",
-        help="Use morphological operations for highly curved objects (takes longer)"
+        help="Use morphological operations for highly curved objects (takes longer)",
     )
 
     parser.add_argument(

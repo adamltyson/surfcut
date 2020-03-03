@@ -4,6 +4,7 @@ import napari
 
 from surfcut.cli import surfcut_parser
 
+
 def straight(data, mask):
     args = surfcut_parser().parse_args()
     imarray_real = numpy.array(data)
@@ -18,7 +19,14 @@ def straight(data, mask):
             if index:
                 index_first = index[0][0]
                 if (index_first + args.depth + args.shift) < imdim[0]:
-                    straightened[0:zthick, (i - 2):(i + 3), (j - 2):(j + 3)] = imarray_real[(index_first + args.shift):(index_first + args.shift + args.depth), (i - 2):(i + 3), (j - 2):(j + 3)]
+                    straightened[
+                        0:zthick, (i - 2) : (i + 3), (j - 2) : (j + 3)
+                    ] = imarray_real[
+                        (index_first + args.shift) : (
+                            index_first + args.shift + args.depth
+                        ),
+                        (i - 2) : (i + 3),
+                        (j - 2) : (j + 3),
+                    ]
 
     return straightened
-
