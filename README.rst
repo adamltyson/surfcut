@@ -36,7 +36,7 @@ A version including morphological operations (erode and dilate) is available for
 
     surfcut <image name>.tif -m
 
-.. image:: morph.gif
+.. image:: resources/morph.gif
 
 For more options:
 
