@@ -144,9 +144,9 @@ class calibrate_window:
         self.master = master
         self.binary = binary
         self.data = data
-        self.original_canvas = tk.Canvas(self.master, width=650, height=650)
+        self.original_canvas = tk.Canvas(self.master, width=500, height=500)
         self.original_canvas.grid(row=0, column=0)
-        self.calibrate_canvas = tk.Canvas(self.master, width=650, height=650)
+        self.calibrate_canvas = tk.Canvas(self.master, width=500, height=500)
         self.calibrate_canvas.grid(row=0, column=1)
         self.plane = 0
         self.show_img()
@@ -163,12 +163,23 @@ class calibrate_window:
         self.show_img()
 
     def show_img(self, *args):
-        self.img = Image.fromarray(self.data[self.plane])
+        z, x, y = self.data.shape
+        # self.original_canvas.configure(width=y, height=x)
+        # self.calibrate_canvas.configure(width=y, height=x)
+        self.img = Image.fromarray(self.data[self.plane]).resize(
+            (500, 500), Image.ANTIALIAS
+        )
+        # self.img = np.array(self.img.resize((y_resize,x_resize), Image.ANTIALIAS))
+        # self.img = Image.fromarray(self.img)
         self.img = ImageTk.PhotoImage(self.img)
         self.original_canvas.create_image(0, 0, image=self.img, anchor="nw")
         self.original_canvas.image = self.img
 
-        self.bin_img = Image.fromarray(self.binary[self.plane])
+        self.bin_img = Image.fromarray(self.binary[self.plane]).resize(
+            (500, 500), Image.ANTIALIAS
+        )
+        # self.bin_img = np.array(self.bin_img.resize((y_resize,x_resize), Image.ANTIALIAS))
+        # self.bin_img = Image.fromarray(self.bin_img)
         self.bin_img = ImageTk.PhotoImage(self.bin_img)
         self.calibrate_canvas.create_image(
             0, 0, image=self.bin_img, anchor="nw"
