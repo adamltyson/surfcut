@@ -4,6 +4,11 @@ surfcut-python
 surfcut-python is an **incomplete** port of `the SurfCut macro for ImageJ/FIJI <https://github.com/sverger/SurfCut>`_
 
 If you would like to use SurfCut, we recommend the original macro. However, if you want to use this Python version, please do `get in touch <https://github.com/sverger/SurfCut>`_
+
+
+More Details
+=============
+
 Paper:
 Erguvan, O., Louveaux, M., Hamant, O., Verger, S. (2019) ImageJ SurfCut: a user-friendly pipeline for high-throughput extraction of cell contours from 3D image stacks. BMC Biology, 17:38. https://doi.org/10.1186/s12915-019-0657-1
 
