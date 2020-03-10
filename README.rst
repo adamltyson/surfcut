@@ -3,7 +3,7 @@ surfcut-python
 ***************************
 surfcut-python is an **incomplete** port of `the SurfCut macro for ImageJ/FIJI <https://github.com/sverger/SurfCut>`_
 
-If you would like to use SurfCut, we recommend the original macro. However, if you want to use this Python version, please do `get in touch <mailto:adam.tyson@ucl.ac.uk?subject=SurfCut>`_.
+If you would like to use SurfCut, we recommend the original macro. However, if you want to use this Python version, please do get in touch.
 
 
 More Details
